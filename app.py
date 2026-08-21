@@ -6,6 +6,8 @@ load_dotenv()
 from flask import Flask, render_template, redirect, url_for, request,session
 from werkzeug.security import generate_password_hash, check_password_hash
 # generate_password_hash() is used to hash the password before storing it in the database. check_password_hash() is used to verify the password entered by the user during login.
+import pymysql
+pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
 from datetime import datetime
 
