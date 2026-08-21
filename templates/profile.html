@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip | My Profile</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #faf2e3;
+            min-height: 100vh;
+            color: #222;
+        }
+
+        /* NAVBAR*/
+
+        .navbar {
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 700;
+            color: #f5a400;
+        }
+
+        .home-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffad00;
+            color: #111;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .home-btn:hover {
+            background: #f39c00;
+        }
+
+        /* MAIN PROFILE CARD */
+
+        .profile-card {
+            width: calc(100% - 40px);
+            max-width: 960px;
+            margin: 30px auto 35px;
+            padding: 28px 30px 6px;
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-heading {
+            font-size: 35px;
+            font-weight: 600;
+            color: orange;
+            margin-bottom: 25px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* PROFILE HEADER*/
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* PROFILE AVATAR*/
+
+        .profile-circle {
+            width: 76px;
+            height: 76px;
+            min-width: 76px;
+            border-radius: 50%;
+            background: #ffa800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* PROFILE DETAILS*/
+
+        .profile-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .profile-details h2 {
+            color: #111111;
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .profile-details p {
+            color: #666666;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        .profile-details strong {
+            color: #222222;
+            font-weight: 700;
+        }
+
+        /* EDIT PROFILE*/
+
+        .edit-btn {
+            display: inline-block;
+            flex-shrink: 0;
+            text-decoration: none;
+            background: #ffad00;
+            color: #111111;
+            padding: 12px 10px;
+            margin-right: 20px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 550;
+            white-space: nowrap;
+
+            transition: 0.2s ease;
+        }
+
+        .edit-btn:hover {
+            background: #f39c00;
+        }
+
+        /*SEPARATOR*/
+
+        .booking-divider {
+            width: 100%;
+            height: 1px;
+            background: #e5e5e5;
+            margin: 28px 0 22px;
+        }
+
+        /* BOOKINGS*/
+
+        .bookings-title {
+            color: #222222;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .booking-card {
+            width: 100%;
+            background: #fffdfa;
+            border: 1px solid #e4e0da;
+            border-radius: 11px;
+            padding: 22px 20px 24px;
+            margin-bottom: 16px;
+        }
+
+        .booking-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .booking-card h3 {
+            color: #171717;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .booking-card p {
+            color: #555555;
+            font-size: 15px;
+            margin-bottom: 6px;
+            line-height: 1.45;
+        }
+
+        .cancel-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 14.5px 18px;
+            background: #e53935;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-btn:hover {
+            background: #c62828;
+        }
+
+        .booking-card strong {
+            color: #222222;
+            font-weight: 700;
+        }
+
+        /* NO BOOKINGS*/
+        .no-bookings {
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            background: #fffdfa;
+            border: 1px solid #e4e0da;
+            border-radius: 11px;
+            color: #777777;
+            font-size: 15px;
+        }
+
+        /* LOGOUT */
+
+        .logout-section {
+            width: calc(100% - 40px);
+            max-width: 960px;
+            margin: 0 auto 35px;
+            text-align: right;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+            background: #e53935;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: 0.2s ease;
+            margin-left: 35px;
+        }
+
+        .logout-btn:hover {
+            background: #c62828;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .cancel-modal {
+            width: 380px;
+            max-width: 90%;
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cancel-modal h3 {
+            margin: 0 0 12px;
+            color: #222;
+            font-size: 22px;
+        }
+
+        .cancel-modal p {
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .no-btn,
+        .yes-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+        }
+
+        .no-btn {
+            background: #eee;
+            color: #333;
+        }
+
+        .yes-btn {
+            background: #e53935;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <div class="brand">
+                NextTrip
+            </div>
+
+            <a href="{{ url_for('home') }}" class="home-btn">
+                Home
+            </a>
+
+        </div>
+    </nav>
+
+    <!-- MAIN PROFILE CARD -->
+
+    <div class="profile-card">
+
+        <!-- PROFILE HEADER -->
+        <h2 class="profile-heading">Your Profile</h2>
+        <div class="profile-header">
+
+            <!-- ONLY FIRST INITIAL -->
+            <div class="profile-circle">
+                {{ user[0][0] | upper }}
+            </div>
+
+            <div class="profile-details">
+
+                <h2>{{ user[0] }}</h2>
+
+                <p>
+                    <strong>Email:</strong> {{ user[1] }}
+                </p>
+
+            </div>
+
+            <a href="#" class="edit-btn">
+                Edit Profile
+            </a>
+
+        </div>
+
+
+        <!-- HORIZONTAL LINE ABOVE BOOKINGS -->
+
+        <div class="booking-divider"></div>
+
+
+        <!-- BOOKINGS -->
+
+        {% if bookings %}
+
+        <h2 class="bookings-title">
+            Your Bookings
+        </h2>
+
+        {% for booking in bookings %}
+
+        <div class="booking-card">
+
+            <h3>
+                {{ booking[2] }}
+            </h3>
+
+            <p>
+                <strong>Travel Date:</strong>
+                {{ booking[3] }}
+            </p>
+
+            <p>
+                <strong>Number of People:</strong>
+                {{ booking[4] }}
+            </p>
+
+            <p>
+                <strong>Amount:</strong>
+                ₹{{ booking[7] }}
+            </p>
+
+            <p>
+                <strong>Booking ID:</strong>
+                {{ booking[0] }}
+            </p>
+
+            <p>
+                <strong>Booked On:</strong>
+                {{ booking[5].strftime('%Y-%m-%d') }}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {{ booking[8] }}
+            </p>
+            <button type="button" class="cancel-btn" onclick="openCancelModal('{{ booking[0] }}')">
+                Cancel Trip
+            </button>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="no-bookings">
+            You have no bookings yet.
+        </div>
+
+        {% endif %}
+        <!-- LOGOUT -->
+
+        <div class="logout-section">
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+    <div id="cancelModal" class="modal-overlay">
+
+        <div class="cancel-modal">
+
+            <h3>Cancel Trip?</h3>
+
+            <p>Do you really want to cancel your trip?</p>
+
+            <div class="modal-buttons">
+
+                <button type="button" class="no-btn" onclick="closeCancelModal()">
+                    No
+                </button>
+
+                <a id="confirmCancelBtn" class="yes-btn" href="#">
+                    Yes, Cancel
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function openCancelModal(bookingId) {
+            document.getElementById("cancelModal").style.display = "flex";
+
+            document.getElementById("confirmCancelBtn").href =
+                "/cancel-booking/" + bookingId;
+        }
+
+        function closeCancelModal() {
+            document.getElementById("cancelModal").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

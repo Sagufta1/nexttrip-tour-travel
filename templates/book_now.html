@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip | Book Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(250, 242, 227);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 30px 40px;
+            width: 480px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 22px;
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: orange;
+        }
+
+        h2 {
+            text-align: center;
+            color: orange;
+            margin-bottom: 6px;
+        }
+
+        h4 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 14px;
+            font-family: Arial, sans-serif;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: orange;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        button {
+            width: 100%;
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        button:hover {
+            background: #e69500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <a href="{{ url_for('package') }}" class="close-btn">&times;</a>
+
+        <h2>NextTrip</h2>
+        <h4>Book Your Tour</h4>
+
+        {% if not booking_done %}
+        
+        <form action="/book-now" method="POST">
+        
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+        
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        
+            <label>Phone </label>
+            <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+        
+            <label>Select Tour</label>
+            <select name="destination" required>
+                <option value="" disabled selected>Select Tour</option>
+                <option>Paris, France</option>
+                <option>Bali, Indonesia</option>
+                <option>New York City, USA</option>
+                <option>Maldives</option>
+                <option>Himalayan Trek</option>
+                <option>Dubai City Tour</option>
+                <option>Santorini, Greece</option>
+                <option>Kyoto, Japan</option>
+                <option>Machu Picchu, Peru</option>
+            </select>
+        
+            <label>Number of Travelers</label>
+            <input type="number" name="people" placeholder="e.g. 2" min="1" required>
+        
+            <label>Travel Date</label>
+            <input type="date" name="travel_date" min="{{ today }}" required>
+        
+            <label>Special Request</label>
+            <textarea name="special_request" placeholder="Any special requirements..."></textarea>
+        
+            <button type="submit">Confirm Booking</button>
+        
+        </form>
+        
+        {% else %}
+        
+        <div style="text-align: center; margin: 100px auto;">
+            <h2 style="margin-bottom: 18px;">{{ message }}</h2>
+            <p style="margin-bottom: 18px;">Your trip has been successfully booked.</p>
+            <a href="{{ url_for('home') }}">Return to Homepage</a>
+        </div>
+        
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,622 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    playfair display,
+    serif !important;
+  background-color: #f5f5f5 !important;
+}
+
+/* hero section */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("images/mountain.jpeg") center/cover no-repeat;
+  text-align: center;
+}
+
+/* Mist overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #00000040; /* safer than lab() */
+}
+
+/* NAVBAR */
+.navbar {
+  position: static;
+  top: 0;
+  width: 100%;
+  background: white;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 16px 0px !important;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes logo left, menu right automatically */
+  width: 90%;
+  margin: auto;
+}
+
+/* Brand */
+.brand {
+  font-weight: bold;
+  font-size: 23px;
+  color: orange;
+  margin-right: 120px;
+}
+.nav-links {
+  margin-left: auto; /* pushes menu to right */
+}
+
+/* Menu */
+.navbar ul {
+  list-style: none;
+  display: flex; /* for horizontal layout of navbar elements */
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: bold;
+  color: orange;
+  font-size: 23px;
+}
+.login-btn {
+  margin-left: 10px;
+  background-color: orange;
+  color: black !important;
+  padding: 9px 5px;
+  border-radius: 5px;
+  border: 1px solid #050d20;
+  font-size: 18px !important; /* add !important */
+  font-weight: bold;
+  line-height: 1; /* add this to reduce height */
+}
+
+.login-btn:hover {
+  color: rgb(105, 80, 34) !important;
+}
+
+.navbar a:hover {
+  color: rgb(151, 105, 21);
+}
+
+/*PROFILE MENU*/
+
+.profile-container {
+    position: relative;
+}
+
+/* Main profile circle */
+.profile-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: orange;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Dropdown box */
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 210px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 14px 14px 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+}
+
+.profile-container:hover .profile-dropdown {
+    display: block;
+}
+
+/* User information row */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 0 6px;
+}
+
+/* Small profile circle (initials) */
+.dropdown-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: orange;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Name + email */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0px;
+    
+}
+
+.profile-details strong {
+    font-size: 17px;
+    color: #222;
+    white-space: nowrap;
+}
+
+.profile-details span {
+    font-size: 14px;
+    color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-details strong,
+.profile-details span {
+    margin-left: 0;
+    padding-left: 0;
+    text-align: left;
+}
+
+/* Divider*/
+.profile-dropdown hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 2px 0 7px;
+}
+
+/*Profile/Logout*/
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 7px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.navbar .dropdown-item {
+    font-size: 17px;
+    font-weight: normal;
+    color: #333;
+    padding-left: 0px;
+}
+
+.profile-dropdown .dropdown-item {
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+    padding-left: 6px;
+    margin-bottom: 10px;
+}
+
+.profile-dropdown {
+    width: 220px;
+}
+.navbar .logout-item {
+    color: #e53935;
+}
+
+.profile-dropdown .logout-item {
+    margin-top: 10px;
+}
+.dropdown-item:hover {
+    background-color: #fff3d6;
+}
+
+/* Icons */
+.dropdown-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Logout */
+.logout-item {
+    color: #e53935;
+}
+
+.logout-item:hover {
+    background-color: #ffe5e5;
+}
+
+/* Center Hero Text */
+.hero-content {
+  padding-top: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: white;
+}
+.hero-content p {
+  font-size: 19px;
+}
+
+#about-us {
+  padding: 20px 0;
+  margin-top: -30px; /* pull it up */
+}
+
+/* heading */
+.header-about-us {
+  text-align: center;
+  color: rgb(62, 95, 62);
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* main layout */
+.about-us-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 0 80px;
+}
+
+/* image */
+.about-us-content img {
+  width: 45%;
+  height: 350px; /* increase this */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* text */
+.about-text {
+  width: 45%;
+}
+
+/* heading */
+.about-text h3 {
+  font-size: 24px;
+  color: #222;
+  font-weight: 25px;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+/* paragraph */
+.about-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+  text-align: wrap;
+  font-size: 16px;
+}
+
+/* Our Team */
+#our-team {
+  background: #f5f5f5;
+  padding: 20px 0 40px 0; /* reduce top padding */
+  margin-top: -60px; /* pull up the gap above */
+}
+
+.team-wrapper {
+  background: #f0f0f0; /* light gray so it differs from white cards */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin: 0; /* remove side margin */
+}
+
+.header-team {
+  text-align: center;
+  font-size: 30px;
+  color: rgb(62, 95, 62);
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.team-subheading {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 35px;
+}
+
+.team-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.team-card {
+  background: white;
+  border-radius: 12px;
+  width: 300px; /* wider */
+  text-align: center;
+  padding: 0; /* remove padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-avatar {
+  width: 100%;
+  height: 200px; /* big box on top */
+  border-radius: 0; /* no rounding */
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 70px; /* big initials */
+  font-weight: bold;
+  color: #999;
+}
+
+.team-card-body {
+  padding: 16px;
+}
+
+.team-card h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1c2b3a;
+  margin-bottom: 4px;
+}
+
+.team-role {
+  font-size: 20px;
+  color: #f4b400;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.team-desc {
+  font-size: 17px;
+  font-weight: 500;
+  color:black;
+  line-height: 1.6;
+}
+
+/* Testimonials */
+#testimonials {
+  margin-top: -70px;
+  padding: 20px 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.header-testimonials {
+  padding: 5px 0;
+  text-align: center;
+  color: rgb(62, 95, 62);
+  font-weight: bold;
+  font-style: italic;
+}
+.testimonial-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 50px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: #fff8e7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: calc(50% - 30px); /* 2 cards per row */
+  max-width: 550px;
+}
+.testimonial-card h4 {
+  font-size: 21px;
+  font-weight: bold;
+  color: #1c2b3a;
+  margin-bottom: 6px;
+}
+.testimonial-card p {
+  font-style: italic;
+  color: #555;
+  font-size: 18px;
+}
+
+/* FOOTER */
+footer {
+  padding: 5px 50px 10px !important;
+  background: #050d20;
+  color: #ccc;
+  margin-top: 0px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+footer h2 {
+  color: #f4b400 !important;
+  margin-bottom: 8px;
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+footer p {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.footer-container {
+  padding-left: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  justify-content: flex-start;
+}
+
+.footer-box {
+  flex: 0;
+  min-width: 200px;
+}
+
+/* Quick Links — no bullets, no underline, white */
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-box a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  margin: 1.3px 0;
+}
+
+.footer-box h2 {
+  color: #f4b400 !important;
+  font-weight: bold;
+  font-size: 27px;
+}
+
+.footer-box a:hover {
+  color: #f4b400;
+}
+
+/* Social icons */
+.social-links {
+  display: flex;
+  gap: 10px;
+  color: white;
+}
+
+.social-links a {
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.footer-box .social-links a:hover {
+  color: #f4b400 !important;
+}
+
+.footer-bottom {
+  margin-top: 6px;
+  padding-top: 5px;
+  font-size: 15px !important;
+  text-align: center;
+  border-top: 1px solid #444;
+  font-size: 17px;
+}
+
+/*  this is for the mobile view */ 
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .brand {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  .navbar ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .navbar a {
+    font-size: 15px;
+  }
+  .login-btn {
+    margin-top: 8px;
+  }
+  .profile-container {
+    margin-left: 8px;
+  }
+  .profile-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .hero-content {
+    width: 90%;
+    padding: 0 10px;
+  }
+  .hero-content h2 {
+    font-size: 22px;
+  }
+  .hero-content h4 {
+    font-size: 15px;
+  }
+  .hero-content p {
+    font-size: 14px;
+  }
+  .about-us-content {
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 20px;
+  }
+  .about-us-content img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .about-text {
+    width: 100%;
+  }
+  .team-card {
+    width: 140px;
+  }
+  .team-avatar {
+    height: 140px;
+    font-size: 40px;
+  }
+  .testimonial-container {
+    padding: 0 15px;
+  }
+  .testimonial-card {
+    width: 100%;
+  }
+  .footer-container {
+    padding-left: 20px;
+    gap: 30px;
+    justify-content: flex-start;
+  }
+  .footer-box {
+    min-width: 150px;
+  }
+  .footer {
+    padding: 5px 20px 10px !important;
+  }
+}

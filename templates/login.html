@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip | Login</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0%;
+            padding: 0%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+
+        .card {
+            position: relative;
+            /* needed for cross mark */
+            background-color: whitesmoke;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 7px;
+            padding: 20px;
+            width: 300px;
+        }
+
+        /* Cross button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: orange;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: orange;
+        }
+
+        h4 {
+            text-align: center;
+            margin-bottom: 15px;
+            margin-top: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .bottom {
+            text-align: center;
+            margin-top: 15px;
+            color: orange;
+            font-size: 16px;
+
+        }
+
+        button {
+            background-color: orange;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        button:hover {
+            background-color: rgb(248, 225, 21);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <!-- Cross mark to go home -->
+        <a href="{{ url_for('home') }}" class="close-btn">&times;</a>
+
+        <h2>NextTrip</h2>
+        <h4>Login</h4>
+        <form method="POST" action="{{ url_for('login') }}">
+            <p>Email</p>
+            <input type="email" name="email" placeholder="Enter email" required>
+
+            <p>Password</p>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p class="bottom">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    </div>
+</body>
+
+</html>

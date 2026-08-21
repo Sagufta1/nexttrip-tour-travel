@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip | Package</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="static/script.js"></script>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: playfair display, serif !important;
+            background-color: rgb(250, 242, 227);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 16px 40px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Brand */
+        .brand {
+            font-weight: bold;
+            font-size: 23px;
+            color: orange;
+        }
+
+        /* Search Bar */
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 25px;
+            padding: 7px 16px;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar:focus-within {
+            border-color: #f4a825;
+            background: #fff;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar i {
+            color: #aaa;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        .search-bar:focus-within i {
+            color: #f4a825;
+        }
+
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+            z-index: 999;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .suggestion-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .suggestion-item:hover {
+            background: #fff8ee;
+            color: #f4a825;
+        }
+
+        /* Menu */
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: bold;
+            color: orange;
+            font-size: 23px;
+        }
+
+        .navbar a:hover {
+            color: #f4a825;
+        }
+
+        .login-btn {
+            margin-left: 10px;
+            background-color: orange;
+            color: black !important;
+            padding: 9px 5px;
+            border-radius: 5px;
+            border: 1px solid #050d20;
+            font-size: 18px !important;
+            /* add !important */
+            font-weight: bold;
+            line-height: 1;
+            /* add this to reduce height */
+        }
+
+        .login-btn:hover {
+            color: rgb(105, 80, 34) !important;
+        }
+        /*PROFILE MENU*/
+        .profile-container {
+            position: relative;
+        }
+        /* Main profile circle */
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: orange;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Dropdown box */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 45px;
+            right: 0;
+            width: 210px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 14px 14px 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+        }
+
+        .profile-container:hover .profile-dropdown {
+            display: block;
+        }
+
+        /* User information row */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 0 6px;
+        }
+
+        /* Small profile circle (initials) */
+        .dropdown-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: orange;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Name + email */
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            gap: 0px;
+
+        }
+
+        .profile-details strong {
+            font-size: 17px;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .profile-details span {
+            font-size: 14px;
+            color: #777;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-details strong,
+        .profile-details span {
+            margin-left: 0;
+            padding-left: 0;
+            text-align: left;
+        }
+
+        /* Divider*/
+        .profile-dropdown hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 2px 0 7px;
+        }
+
+        /*Profile/Logout*/
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 7px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .navbar .dropdown-item {
+            font-size: 17px;
+            font-weight: normal;
+            color: #333;
+            padding-left: 0px;
+        }
+
+        .profile-dropdown .dropdown-item {
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+            padding-left: 6px;
+        }
+
+        .profile-dropdown {
+            width: 220px;
+        }
+
+        .navbar .logout-item {
+            color: #e53935;
+        }
+
+        .profile-dropdown .logout-item {
+            margin-top: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #fff3d6;
+        }
+
+        /* Icons */
+        .dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Logout */
+        .logout-item {
+            color: #e53935;
+        }
+
+        .logout-item:hover {
+            background-color: #ffe5e5;
+        }
+
+        /* Hero Banner */
+        .hero {
+            width: 100%;
+            height: 310px;
+            background: url('static/images/maldives_sunrise.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 30px;
+            font-weight: 700;
+            padding: 14px 30px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* Popular Destinations */
+        #destinations {
+            margin-top: 0px;
+            text-align: center;
+            color: rgb(62, 95, 62) !important;
+        }
+
+        .header-destinations {
+            margin-bottom: 10px;
+            font-weight: 625;
+        }
+
+        .destinations-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* ── PACKAGES GRID ── */
+        .packages-section {
+            padding: 0 48px 64px;
+            flex: 1;
+        }
+
+        .section-title {
+            padding-top: -15px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            margin: 30px 0 32px;
+            color: rgb(62, 95, 62);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .package-card a {
+            text-decoration: none;
+        }
+
+        .package-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .package-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-body {
+            padding: 18px 20px 22px;
+        }
+
+        .card-body h3 {
+            font-size: 23px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 3px;
+        }
+
+        .card-duration {
+            font-size: 18px;
+            color: rgb(6, 6, 78);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card-highlights {
+            list-style: disc;
+            padding-left: 18px;
+            margin-bottom: 14px;
+        }
+
+        .card-highlights li {
+            font-size: 18px;
+            color: rgb(14, 13, 13);
+            margin-bottom: 4px;
+        }
+
+        .card-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f4a825;
+            margin-bottom: 14px;
+        }
+
+        .book-btn {
+            display: block;
+            width: 100%;
+            background: #f4a825;
+            color: #fff;
+            border: none;
+            padding: 10px 0;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.2s;
+        }
+
+        .book-btn:hover {
+            background: #d4880e;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 10px 60px 10px !important;
+            background: #050d20;
+            color: #ccc;
+            margin-top: 0px;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        footer h2 {
+            color: #f4b400 !important;
+            /* overrides white */
+            margin-bottom: 10px;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        footer p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 6px 0;
+        }
+
+        .footer-container {
+            padding-left: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 100px;
+            justify-content: flex-start;
+        }
+
+        .footer-box {
+            flex: 0;
+            min-width: 200px;
+        }
+
+        /* Quick Links — no bullets, no underline, white */
+        .footer-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-box a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .footer-box h2 {
+            color: #f4b400 !important;
+            /* overrides white */
+            font-size: 27px;
+        }
+
+        .footer-box a:hover {
+            color: #f4b400;
+        }
+
+        /* Social icons */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            color: white;
+        }
+
+        .social-links a {
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .footer-box .social-links a:hover {
+            color: #f4b400 !important;
+        }
+
+        .footer-bottom {
+            margin-top: 15px;
+            padding-top: 8px;
+            font-size: 15px !important;
+            text-align: center;
+            border-top: 1px solid #444;
+            font-size: 17px;
+        }
+
+        /*this is for phone view*/
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .navbar ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .navbar a {
+                font-size: 14px;
+            }
+
+            .search-wrapper {
+                max-width: 100%;
+                width: 100%;
+                order: 3;
+            }
+
+            .login-btn {
+                font-size: 14px;
+            }
+
+            .packages-section {
+                padding: 0 15px 40px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                padding-left: 20px;
+                gap: 30px;
+            }
+
+            .footer-box {
+                min-width: 150px;
+            }
+
+            footer {
+                padding: 10px 20px 10px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar starts here -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand">NextTrip</div>
+
+            <!-- Remove the outer <div class="search-bar"> wrapper -->
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search destinations..." id="searchInput" oninput="filterCards()"
+                        onblur="hideSuggestions()" autocomplete="off">
+                </div>
+                <div class="suggestions-box" id="suggestionsBox"></div>
+            </div>
+
+            <ul>
+                <li><a href="{{ url_for('home') }}#hero">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('package') }}">Packages</a></li>
+                <li><a href="{{ url_for('package') }}#contact">Contact</a></li>
+            </ul>
+            {% if session.get('user_id') %}
+            <div class="profile-container">
+                <div class="profile-circle">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-dropdown">
+                    <div class="profile-header">
+                        <div class="dropdown-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-details">
+                            <strong>{{ session.get('username') }}</strong>
+                            <span>{{ session.get('email') }}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="{{ url_for('profile') }}" class="dropdown-item">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="dropdown-item logout-item">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- navbar ends here -->
+
+    <!-- Hero Banner -->
+    <div class="hero">
+        <div class="hero-text">Explore Our Tour Packages</div>
+    </div>
+    <!-- Hero Banner ends -->
+
+    <!-- Destinations section starts -->
+    <section class="packages-section">
+        <h2 class="section-title">Popular Tour Packages</h2>
+        <div class="packages-grid" id="packagesGrid">
+
+            {% for package in packages %}
+            
+            <div class="package-card" data-name="{{ package[1] }} {{ package[2] }}">
+                <img src="{{ url_for('static', filename='images/' + package[5]) }}" alt="{{ package[1] }}">
+            
+                <div class="card-body">
+                    <h3>{{ package[1] }}</h3>
+                
+                    <p class="card-duration">{{ package[6] }}</p>
+                
+                    <ul class="card-highlights">
+                        <li>{{ package[7] }}</li>
+                        <li>{{ package[8] }}</li>
+                        <li>{{ package[9] }}</li>
+                    </ul>
+                    <div class="card-price">
+                        ₹{{ "{:,.0f}".format(package[3]) }} / person
+                    </div>
+            
+                    <a href="{{ url_for('book_now') }}">
+                        <button class="book-btn">Book Now</button>
+                    </a>
+                </div>
+            
+            </div>
+            
+            {% endfor %}
+        </div>
+        <p id="noResults" style="display:none; text-align:center; margin-top: 50px; font-size:20px; color:black;">
+            No destinations found. Try a different search!
+        </p>
+    </section>
+    <!-- Destinations section ends -->
+
+    <!-- footer section starts -->
+    <section id="contact">
+        <footer class="footer">
+            <div class="footer-container">
+
+                <!-- Column 1 -->
+                <div class="footer-box">
+                    <h2>NextTrip</h2>
+                    <p style="color: white; font-size: 17px;">Explore the world with us. <br>Discover
+                        beautiful
+                        destinations <br> and unforgettable experiences.
+                    </p>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="footer-box">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}" style="font-size: 20px;">Home</a></li>
+                        <li><a href="{{ url_for('about') }}#about-us" style="font-size: 20px;">About Us</a></li>
+                        <li><a href="{{ url_for('services') }}" style="font-size: 20px;">Services</a></li>
+                        <li><a href="{{ url_for('package') }}" style="font-size: 20px;">Packages</a></li>
+                        <li><a href="{{ url_for('home') }}#contact" style="font-size: 20px;">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="footer-box">
+                    <h2>Contact Us</h2>
+                    <p><i class="fas fa-envelope"></i> <span style="color: white; font-size: 16px;">Email:
+                            info@nexttrip.com</span></p>
+                    <p><i class="fas fa-phone"></i> <span style="color: white; font-size: 17px;">Phone: +91 98765
+                            43210</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span style="color: white; font-size: 17px;">Location:
+                            India,Kolkata</span></p>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="footer-box">
+                    <h2>Follow Us</h2>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                © 2026 NextTrip. All rights reserved.
+            </div>
+        </footer>
+    </section>
+    <!-- footer section ends -->
+</body>
+
+</html>

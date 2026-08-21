@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NextTrip | Admin Panel</title>
+</head>
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 25px 0 20px;
+        font-size: 35px;
+    }
+
+    body>button {
+        display: block;
+        margin: 0 auto 20px;
+        padding: 10px 18px;
+        border: none;
+        font-size: 18px;
+        border-radius: 7px;
+        background: #111;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Package Heading */
+
+    body>h2 {
+        max-width: 950px;
+        margin: 20px auto 12px;
+        font-size: 27px;
+    }
+
+    /* Package Details */
+
+    .package-card p {
+        margin: 6px 0;
+        line-height: 1.4;
+        font-size: 20px;
+    }
+
+    .package-card strong {
+        color: #222;
+    }
+
+    .package-actions {
+        margin-top: 12px;
+    }
+
+    /* Package Cards */
+
+    body>div:not(#addForm):not(#editPopup) {
+        max-width: 950px;
+        margin: 10px auto;
+        padding: 18px 22px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    body>div:not(#addForm):not(#editPopup) h3 {
+        margin: 0 0 8px;
+        font-size: 23px;
+    }
+
+    body>div:not(#addForm):not(#editPopup) p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    /* Edit Button */
+
+    body>div:not(#addForm):not(#editPopup) button {
+        margin-top: 10px;
+        padding: 7px 15px;
+        border: none;
+        border-radius: 6px;
+        background: #111;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    body>div:not(#addForm):not(#editPopup) button:hover {
+        background: #333;
+    }
+    /* Delete Button */
+
+    body>div:not(#addForm):not(#editPopup) a {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 7px 15px;
+        border-radius: 6px;
+        background: #e74c3c;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    body>div:not(#addForm):not(#editPopup) a:hover {
+        background: #c0392b;
+    }
+
+    /* Add Package Form */
+
+    #addForm {
+        max-width: 500px;
+        margin: 15px auto;
+        padding: 22px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    #addForm h2 {
+        margin-top: 0;
+    }
+
+    #addForm label,
+    #editPopup label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    #addForm input,
+    #addForm textarea,
+    #editPopup input,
+    #editPopup textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 9px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    #addForm textarea,
+    #editPopup textarea {
+        min-height: 70px;
+        resize: vertical;
+    }
+
+    /* Edit Popup */
+
+    #editPopup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 480px;
+        max-width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 25px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+        z-index: 1000;
+    }
+
+    #editPopup h2 {
+        margin: 0 0 18px;
+        text-align: center;
+    }
+
+    /* Popup Buttons */
+
+    #editPopup button[type="submit"],
+    #editPopup button[type="button"],
+    #addForm button {
+        padding: 10px 17px;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    #editPopup button[type="submit"] {
+        background: #111;
+        color: white;
+    }
+
+    #editPopup button[type="button"] {
+        margin-left: 6px;
+        background: #ddd;
+        color: #333;
+    }
+
+        @media (max-width: 768px) {
+        h1 {
+            font-size: 24px;
+            margin: 18px 0 14px;
+        }
+
+        body > h2 {
+            font-size: 20px;
+            padding: 0 15px;
+        }
+
+        body > div:not(#addForm):not(#editPopup) {
+            padding: 15px;
+            margin: 10px 15px;
+        }
+
+        body > div:not(#addForm):not(#editPopup) h3 {
+            font-size: 18px;
+        }
+
+        .package-card p {
+            font-size: 14px;
+        }
+
+        #addForm {
+            width: 90%;
+            padding: 15px;
+        }
+
+        #editPopup {
+            width: 90%;
+            padding: 18px;
+        }
+
+        #addForm label,
+        #editPopup label {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<body>
+    <h1>Admin Panel</h1>
+
+    <!--ADD PACKAGE-->
+
+    <button type="button" onclick="document.getElementById('addForm').style.display='block'">
+        + Add Package
+    </button>
+
+    <!-- Add Package Form -->
+    <div id="addForm" style="display:none;">
+
+        <h2>Add New Package</h2>
+
+        <form method="POST" action="/admin/add">
+
+            <!-- Package Name -->
+            <label>Package Name</label>
+            <input type="text" name="name" required>
+
+            <br><br>
+
+            <!-- Destination -->
+            <label>Destination</label>
+            <input type="text" name="destination" required>
+
+            <br><br>
+
+            <!-- Price -->
+            <label>Price</label>
+            <input type="number" name="price" required>
+
+            <br><br>
+
+            <!-- Description -->
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+
+            <br><br>
+
+            <!-- Image -->
+            <label>Image</label>
+            <input type="text" name="image">
+
+            <br><br>
+
+            <!-- Duration -->
+            <label>Duration</label>
+            <input type="text" name="duration">
+
+            <br><br>
+
+            <!-- Highlight 1 -->
+            <label>Highlight 1</label>
+            <input type="text" name="highlight1">
+
+            <br><br>
+
+            <!-- Highlight 2 -->
+            <label>Highlight 2</label>
+            <input type="text" name="highlight2">
+
+            <br><br>
+
+            <!-- Highlight 3 -->
+            <label>Highlight 3</label>
+            <input type="text" name="highlight3">
+
+            <br><br>
+
+            <button type="submit">
+                Add Package
+            </button>
+
+            <button type="button" onclick="document.getElementById('addForm').style.display='none'">
+                Cancel
+            </button>
+
+        </form>
+
+    </div>
+
+    <hr>
+
+    <!--ALL PACKAGES-->
+
+    <h2>All Packages</h2>
+
+    {% for package in packages %}
+
+    <div class="package-card">
+
+        <h3>{{ package[1] }}</h3> <!-- Package name -->
+
+        <p><strong>Destination:</strong> {{ package[2] }}</p> <!-- Destination -->
+
+        <p><strong>Price:</strong> ₹{{ package[3] }} / person</p> <!-- Price -->
+
+        <p><strong>Description:</strong> {{ package[4] }}</p> <!-- Description -->
+
+        <p><strong>Image:</strong> {{ package[5] }}</p> <!-- Image filename -->
+
+        <p><strong>Duration:</strong> {{ package[6] }}</p> <!-- Duration -->
+
+        <p><strong>Highlight 1:</strong> {{ package[7] }}</p> <!-- First highlight -->
+
+        <p><strong>Highlight 2:</strong> {{ package[8] }}</p> <!-- Second highlight -->
+
+        <p><strong>Highlight 3:</strong> {{ package[9] }}</p> <!-- Third highlight -->
+
+
+        <div class="package-actions">
+
+            <button type="button" onclick="openEdit('{{ package[0] }}')">
+                Edit
+            </button>
+            <!-- Opens Edit popup -->
+
+
+            <a href="/admin/delete/{{ package[0] }}">
+                Delete
+            </a>
+            <!-- Deletes this package -->
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+    <!--EDIT PACKAGE POPUP-->
+
+    <div id="editPopup" style="display:none;">
+
+        <h2>Edit Package</h2>
+
+        <form method="POST" action="/admin/edit">
+
+            <!-- Package ID -->
+            <input type="hidden" name="id" id="edit_id">
+
+            <!-- Package Name -->
+            <label>Package Name</label>
+
+            <input type="text" name="name" id="edit_name" required>
+
+            <br><br>
+
+            <!-- Destination -->
+            <label>Destination</label>
+
+            <input type="text" name="destination" id="edit_destination" required>
+
+            <br><br>
+
+            <!-- Price -->
+            <label>Price</label>
+
+            <input type="number" name="price" id="edit_price" required>
+
+            <br><br>
+
+            <!-- Description -->
+            <label>Description</label>
+
+            <textarea name="description" id="edit_description"></textarea>
+
+            <br><br>
+
+            <!-- Image -->
+            <label>Image</label>
+
+            <input type="text" name="image" id="edit_image">
+
+            <br><br>
+
+            <!-- Duration -->
+            <label>Duration</label>
+
+            <input type="text" name="duration" id="edit_duration">
+
+            <br><br>
+
+            <!-- Highlight 1 -->
+            <label>Highlight 1</label>
+
+            <input type="text" name="highlight1" id="edit_highlight1">
+
+            <br><br>
+
+            <!-- Highlight 2 -->
+            <label>Highlight 2</label>
+
+            <input type="text" name="highlight2" id="edit_highlight2">
+
+            <br><br>
+
+            <!-- Highlight 3 -->
+            <label>Highlight 3</label>
+
+            <input type="text" name="highlight3" id="edit_highlight3">
+
+            <br><br>
+
+            <!-- Save -->
+            <button type="submit">
+                Save Changes
+            </button>
+
+            <!-- Cancel -->
+            <button type="button" onclick="closeEdit()">
+                Cancel
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+        function openEdit(id) {
+            fetch("/admin/get-package/" + id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("edit_id").value = data.id;
+                    document.getElementById("edit_name").value = data.name;
+                    document.getElementById("edit_destination").value = data.destination;
+                    document.getElementById("edit_price").value = data.price;
+                    document.getElementById("edit_description").value = data.description;
+                    document.getElementById("edit_image").value = data.image;
+                    document.getElementById("edit_duration").value = data.duration;
+                    document.getElementById("edit_highlight1").value = data.highlight1;
+                    document.getElementById("edit_highlight2").value = data.highlight2;
+                    document.getElementById("edit_highlight3").value = data.highlight3;
+
+                    document.getElementById("editPopup").style.display = "block";
+                });
+        }
+
+        function closeEdit() {
+            document.getElementById("editPopup").style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>

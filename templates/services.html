@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip | Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(219, 219, 219) !important;
+            font-family: playfair display, serif;
+            color: #333;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: static;
+            top: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 16px 0px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            margin: auto;
+        }
+
+        .brand {
+            font-weight: bold;
+            font-size: 23px;
+            color: orange;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: bold;
+            color: orange;
+            font-size: 23px;
+        }
+
+        .navbar a:hover {
+            color: rgb(151, 105, 21);
+        }
+
+        .login-btn {
+            margin-left: 10px;
+            background-color: orange;
+            color: black !important;
+            padding: 9px 5px;
+            border-radius: 5px;
+            border: 1px solid #050d20;
+            font-size: 18px !important;
+            font-weight: 400 !important;
+            line-height: 1;
+        }
+
+        .login-btn:hover {
+            color: rgb(105, 80, 34) !important;
+        }
+
+        /*PROFILE MENU*/
+        .profile-container {
+            position: relative;
+        }
+
+        /* Main profile circle */
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: orange;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Dropdown box */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 45px;
+            right: 0;
+            width: 210px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 14px 14px 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+        }
+
+        .profile-container:hover .profile-dropdown {
+            display: block;
+        }
+
+        /* User information row */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 0 6px;
+        }
+
+        /* Small profile circle (initials) */
+        .dropdown-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: orange;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Name + email */
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            gap: 0px;
+
+        }
+
+        .profile-details strong {
+            font-size: 17px;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .profile-details span {
+            font-size: 14px;
+            color: #777;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-details strong,
+        .profile-details span {
+            margin-left: 0;
+            padding-left: 0;
+            text-align: left;
+        }
+
+        /* Divider*/
+        .profile-dropdown hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 2px 0 7px;
+        }
+
+        /*Profile/Logout*/
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 7px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .navbar .dropdown-item {
+            font-size: 17px;
+            font-weight: normal;
+            color: #333;
+            padding-left: 0px;
+        }
+
+        .profile-dropdown .dropdown-item {
+            justify-content: flex-start;
+            text-align: left;
+            width: 100%;
+            padding-left: 6px;
+        }
+
+        .profile-dropdown {
+            width: 220px;
+        }
+
+        .navbar .logout-item {
+            color: #e53935;
+        }
+
+        .profile-dropdown .logout-item {
+            margin-top: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #fff3d6;
+        }
+
+        /* Icons */
+        .dropdown-item i {
+            width: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Logout */
+        .logout-item {
+            color: #e53935;
+        }
+
+        .logout-item:hover {
+            background-color: #ffe5e5;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background: #f4a825;
+            text-align: center;
+            padding: 60px 24px;
+            color: black;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 25px;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+
+        /* ── WHAT WE OFFER ── */
+        .offer-section {
+            font-size: 70px;
+            text-align: center;
+            padding: 56px 48px 40px;
+        }
+
+        .offer-section h2 {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 36px;
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 28px 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .offer-card i {
+            font-size: 36px;
+            color: #f4a825;
+            margin-bottom: 14px;
+        }
+
+        .offer-card h3 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .offer-card p {
+            font-size: 19px;
+            color: rgb(6, 6, 78);
+            line-height: 1.6;
+        }
+
+        /* ── SERVICES DETAIL ── */
+        .services-section {
+            padding: 40px 48px 56px;
+        }
+
+        .services-section h2 {
+            margin-top: -20px;
+            font-size: 30px;
+            color: #222;
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .service-row {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            background: white;
+            border-radius: 10px;
+            padding: 28px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .service-row i {
+            font-size: 40px;
+            color: #f4a825;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .service-row h3 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .service-row p {
+            font-size: 19px;
+            color: rgb(6, 6, 78);
+            line-height: 1.6;
+        }
+
+        /* ── WHY CHOOSE US ── */
+        .why-section {
+            background: white;
+            padding: 56px 48px;
+            text-align: center;
+        }
+
+        .why-section h2 {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 36px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .why-card i {
+            font-size: 30px;
+            color: #f4a825;
+            margin-bottom: 12px;
+        }
+
+        .why-card h4 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .why-card p {
+            font-size: 19px;
+            color: rgb(6, 6, 78);
+            line-height: 1.6;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            text-align: center;
+            padding: 56px 24px;
+            background: #f4a825;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            font-size: 22px;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #f4a825;
+            padding: 12px 23px;
+            border-radius: 6px;
+            font-size: 19px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: #fff8e7;
+        }
+
+        /* ── FEEDBACK ── */
+        .feedback-section {
+            padding: 56px 48px;
+            text-align: center;
+        }
+
+        .feedback-section h2 {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .feedback-section p {
+            font-size: 19px;
+            color: rgb(6, 6, 78);
+            margin-bottom: 32px;
+        }
+
+        .feedback-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            padding: 36px 40px;
+            max-width: 580px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .feedback-form label {
+            font-size: 19px;
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .feedback-form input,
+        .feedback-form select,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .feedback-form input:focus,
+        .feedback-form select:focus,
+        .feedback-form textarea:focus {
+            border-color: orange;
+        }
+
+        .feedback-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .star-group {
+            display: flex;
+            gap: 8px;
+            font-size: 24px;
+            color: #ccc;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .star-group span:hover,
+        .star-group span.active {
+            color: #f4a825;
+        }
+
+        .feedback-form button {
+            width: 100%;
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .feedback-form button:hover {
+            background: #e69500;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 10px 60px 10px !important;
+            background: #050d20;
+            color: #ccc;
+            margin-top: 0px;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        footer h2 {
+            color: #f4b400 !important;
+            /* overrides white */
+            margin-bottom: 10px;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        footer p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 6px 0;
+        }
+
+        .footer-container {
+            padding-left: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 100px;
+            justify-content: flex-start;
+        }
+
+        .footer-box {
+            flex: 0;
+            min-width: 200px;
+        }
+
+        /* Quick Links — no bullets, no underline, white */
+        .footer-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-box a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .footer-box h2 {
+            color: #f4b400 !important;
+            /* overrides white */
+            font-size: 27px;
+        }
+
+        .footer-box a:hover {
+            color: #f4b400;
+        }
+
+        /* Social icons */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            color: white;
+        }
+
+        .social-links a {
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .footer-box .social-links a:hover {
+            color: #f4b400 !important;
+        }
+
+        .footer-bottom {
+            margin-top: 15px;
+            padding-top: 8px;
+            font-size: 15px !important;
+            text-align: center;
+            border-top: 1px solid #444;
+            font-size: 17px;
+        }
+
+        /*this is for the phone view*/
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .navbar ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .navbar a {
+                font-size: 14px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .offer-section {
+                padding: 30px 15px 20px;
+            }
+
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                padding-left: 20px;
+                gap: 30px;
+            }
+
+            .footer-box {
+                min-width: 150px;
+            }
+
+            footer {
+                padding: 10px 20px 10px !important;
+            }
+
+            .why-section {
+                padding: 30px 15px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cta-section {
+                padding: 30px 15px;
+            }
+
+            .cta-section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- navbar starts here -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand">NextTrip</div>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}#about-us">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('package') }}">Packages</a></li>
+                <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
+            </ul>
+            {% if "user_id" in session %}
+            <div class="profile-container">
+                <!-- Profile circle -->
+                <div class="profile-circle">
+                    <i class="fas fa-user"></i>
+                </div>
+                <!-- Dropdown -->
+                <div class="profile-dropdown">
+                    <!-- User information -->
+                    <div class="profile-header">
+                        <div class="dropdown-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-details">
+                            <strong>{{ session["username"] }}</strong>
+                            <span>{{ session["email"] }}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Profile -->
+                    <a href="{{ url_for('profile') }}" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <!-- Logout -->
+                    <a href="{{ url_for('logout') }}" class="dropdown-item logout-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+            {% endif %}
+        </div>
+        </div>
+    </nav>
+    <!-- navbar ends here -->
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Our Services</h1>
+        <p>Everything you need for a perfect trip - all in one place.</p>
+    </div>
+
+    <!-- WHAT WE OFFER -->
+    <section class="offer-section">
+        <h2>What We Offer</h2>
+        <div class="offer-grid">
+            <div class="offer-card">
+                <i class="fas fa-plane"></i>
+                <h3>Flight Booking</h3>
+                <p>Affordable flights to your dream destinations worldwide.</p>
+            </div>
+            <div class="offer-card">
+                <i class="fas fa-hotel"></i>
+                <h3>Hotel Reservation</h3>
+                <p>Comfortable hotels with the best deals and locations.</p>
+            </div>
+            <div class="offer-card">
+                <i class="fas fa-suitcase-rolling"></i>
+                <h3>Tour Packages</h3>
+                <p>Carefully designed travel experiences for every budget.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES DETAIL -->
+    <section class="services-section">
+        <h2>How We Help You Travel</h2>
+
+        <div class="service-row">
+            <i class="fas fa-map-marked-alt"></i>
+            <div>
+                <h3>Custom Trip Planning</h3>
+                <p>We plan your entire trip based on your budget, interests and travel dates. From itinerary to bookings
+                    — we handle everything.</p>
+            </div>
+        </div>
+
+        <div class="service-row">
+            <i class="fas fa-headset"></i>
+            <div>
+                <h3>24/7 Customer Support</h3>
+                <p>Our team is available round the clock to assist you before, during and after your trip.</p>
+            </div>
+        </div>
+
+        <div class="service-row">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <h3>Travel Insurance</h3>
+                <p>Travel with peace of mind. We offer insurance options to keep you covered for unexpected situations.
+                </p>
+            </div>
+        </div>
+
+        <div class="service-row">
+            <i class="fas fa-car"></i>
+            <div>
+                <h3>Airport Transfers</h3>
+                <p>Hassle-free pickup and drop-off at the airport. Comfortable vehicles and professional drivers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="why-section">
+        <h2>Why Choose NextTrip?</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <i class="fas fa-star"></i>
+                <h4>Best Price Guarantee</h4>
+                <p>We match the best prices so you never overpay.</p>
+            </div>
+            <div class="why-card">
+                <i class="fas fa-globe"></i>
+                <h4>100+ Destinations</h4>
+                <p>From beaches to mountains across the globe.</p>
+            </div>
+            <div class="why-card">
+                <i class="fas fa-thumbs-up"></i>
+                <h4>Trusted by Thousands</h4>
+                <p>Over 10,000 happy travelers booked with us.</p>
+            </div>
+            <div class="why-card">
+                <i class="fas fa-lock"></i>
+                <h4>Safe & Secure</h4>
+                <p>Your payments and data are always safe with us.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Ready to Plan Your Next Trip?</h2>
+        <p>Browse our packages and book your dream vacation today.</p>
+        <a href="{{ url_for('package') }}" class="cta-btn">Explore Packages</a>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section class="feedback-section">
+        <h2>Drop Your Feedback</h2>
+        <p>We'd love to hear about your experience with NextTrip!</p>
+
+        <div class="feedback-form">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your name">
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter your email">
+
+            <label>Tour Visited</label>
+            <select>
+                <option value="" disabled selected>Select Tour</option>
+                <option>Paris, France</option>
+                <option>Bali, Indonesia</option>
+                <option>New York City, USA</option>
+                <option>Maldives</option>
+                <option>Himalayan Trek</option>
+                <option>Dubai City Tour</option>
+                <option>Santorini, Greece</option>
+                <option>Kyoto, Japan</option>
+                <option>Machu Picchu, Peru</option>
+            </select>
+
+            <label>Rating</label>
+            <div class="star-group" id="stars">
+                <span onclick="setRating(1)">★</span>
+                <span onclick="setRating(2)">★</span>
+                <span onclick="setRating(3)">★</span>
+                <span onclick="setRating(4)">★</span>
+                <span onclick="setRating(5)">★</span>
+            </div>
+
+            <label>Your Feedback</label>
+            <textarea placeholder="Share your experience..."></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </div>
+    </section>
+
+    <!-- footer section starts -->
+    <section id="contact">
+        <footer class="footer">
+            <div class="footer-container">
+
+                <!-- Column 1 -->
+                <div class="footer-box">
+                    <h2>NextTrip</h2>
+                    <p style="color: white; font-size: 17px;">Explore the world with us. <br>Discover
+                        beautiful
+                        destinations <br> and unforgettable experiences.
+                    </p>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="footer-box">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}" style="font-size: 20px;">Home</a></li>
+                        <li><a href="{{ url_for('about') }}#about-us" style="font-size: 20px;">About Us</a></li>
+                        <li><a href="{{ url_for('services') }}" style="font-size: 20px;">Services</a></li>
+                        <li><a href="{{ url_for('package') }}" style="font-size: 20px;">Packages</a></li>
+                        <li><a href="{{ url_for('home') }}#contact" style="font-size: 20px;">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="footer-box">
+                    <h2>Contact Us</h2>
+                    <p><i class="fas fa-envelope"></i> <span style="color: white; font-size: 16px;">Email:
+                            info@nexttrip.com</span></p>
+                    <p><i class="fas fa-phone"></i> <span style="color: white; font-size: 17px;">Phone: +91 98765
+                            43210</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span style="color: white; font-size: 17px;">Location:
+                            India,Kolkata</span></p>
+                </div>
+                <!-- Column 4 -->
+                <div class="footer-box">
+                    <h2>Follow Us</h2>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 NextTrip. All rights reserved.
+            </div>
+        </footer>
+    </section>
+    <!-- footer section ends -->
+
+    <script>
+        function setRating(n) {
+            const stars = document.querySelectorAll('#stars span');
+            stars.forEach((s, i) => {
+                s.classList.toggle('active', i < n);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

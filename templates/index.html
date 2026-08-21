@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextTrip</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <script>
+        alert('Please wait while the page is loading...');
+    </script>
+    <!-- Hero section starts -->
+    <section class="hero" id="hero">
+        <!-- navbar starts-->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="brand">NextTrip</div>
+                <ul>
+                    <li><a href="{{ url_for('home') }}#hero">Home</a></li>
+                    <li><a href="{{ url_for('home') }}#about-us">About Us</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('package') }}">Packages</a></li>
+                    <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
+                </ul>
+                {% if "user_id" in session %}
+                <div class="profile-container">
+                    <!-- Profile circle -->
+                    <div class="profile-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="profile-dropdown">
+                        <!-- User information -->
+                        <div class="profile-header">
+                            <div class="dropdown-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-details">
+                                <strong>{{ session["username"] }}</strong>
+                                <span>{{ session["email"] }}</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Profile -->
+                        <a href="{{ url_for('profile') }}" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <!-- Admin - only visible to admin -->
+                        {% if session.get("is_admin") %}
+                        <a href="{{ url_for('admin') }}" class="dropdown-item">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Admin</span>
+                        </a>
+                        {% endif %}
+                        <!-- Logout -->
+                        <a href="{{ url_for('logout') }}" class="dropdown-item logout-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        <!-- navbar ends -->
+
+        <div class="hero-content">
+            <h4>Explore The World</h4>
+            <h2>Discover Beautiful Places With Us</h2>
+            <p>Travel with us and explore the most amazing destinations around the globe.
+                Your adventure starts here.
+            </p>
+            <a href="{{ url_for('package') }}"><button class="btn btn-warning">Explore Now</button></a>
+        </div>
+
+    </section>
+    <!-- Hero Section Ends -->
+    <br>
+    <br>
+    <!-- About us section starts -->
+    <section id="about-us">
+        <h2 class="header-about-us">About Us</h2>
+
+        <div class="about-us-content">
+            <img src="{{ url_for('static', filename='images/japan.jpg') }}" alt="Japan">
+
+            <div class="about-text">
+                <h3>Who We Are</h3>
+                <p> At TourNest, we are passionate travelers dedicated to helping people explore the world with ease and
+                    excitement. We believe that travel is not just about visiting new places, but about creating
+                    unforgettable memories and meaningful experiences.
+                    <br>
+                    Our team works to provide carefully curated travel packages, personalized services, and reliable
+                    support to ensure every journey is smooth and enjoyable. Whether it’s a relaxing getaway, an
+                    adventurous trip, or a cultural
+                    exploration, we aim to make travel accessible and hassle-free for everyone.
+                    <br>
+                    With a focus on quality, affordability, and customer satisfaction, TourNest is your trusted partner
+                    in discovering the beauty of the world.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- About us section ends -->
+    <br>
+    <br>
+    <!-- Our Team section starts -->
+    <section id="our-team">
+        <div class="team-wrapper">
+            <h2 class="header-team">Our Team</h2>
+            <p class="team-subheading" style="color: black;">The passionate people behind NextTrip</p>
+            <!-- Row 1 -->
+            <div class="team-row">
+                <div class="team-card">
+                    <div class="team-avatar">AA</div>
+                    <h3>Anisha Arora</h3>
+                    <div class="team-divider"></div>
+                    <p class="team-role">Travel Expert</p>
+                    <p class="team-desc">10+ years crafting perfect itineraries for every traveler.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">KS</div>
+                    <h3>Kriti Sinha</h3>
+                    <div class="team-divider"></div>
+                    <p class="team-role">Tour Manager</p>
+                    <p class="team-desc">Ensures every trip runs smoothly from start to finish.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">AS</div>
+                    <h3>Aditya Sharma</h3>
+                    <div class="team-divider"></div>
+                    <p class="team-role">Customer Support</p>
+                    <p class="team-desc">Always here to help you plan your dream vacation.</p>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="team-row">
+                <div class="team-card">
+                    <div class="team-avatar">KR</div>
+                    <h3>Kunal Rawat</h3>
+                    <div class="team-divider"></div>
+                    <p class="team-role">Package Specialist</p>
+                    <p class="team-desc">Designs affordable packages tailored to your needs.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">AK</div>
+                    <h3>Ayush Kumar</h3>
+                    <div class="team-divider"></div>
+                    <p class="team-role">Operations Head</p>
+                    <p class="team-desc">Keeps everything running behind the scenes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Our Team section ends -->
+    <br>
+    <br>
+    <!--testimonials section starts here-->
+    <section id="testimonials">
+        <h2 class="header-testimonials">What Our Travelers Say</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <p>"NextTrip made our honeymoon unforgettable! It was really nice. The Paris trip was perfectly planned,
+                    and every detail
+                    was taken care of. Highly recommend!"</p>
+                <h4>- Anisha & Aditya</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Bali with NextTrip was a dream come true! The beaches were stunning, and the cultural experiences
+                    were amazing. We can't wait to book our next trip with them!"</p>
+                <h4>- Ankita</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Our New York City tour was fantastic! The itinerary was well-balanced, and we got to see all the
+                    iconic sights. NextTrip truly knows how to create memorable travel experiences."</p>
+                <h4>- Rohan </h4>
+            </div>
+        </div>
+        <!--testimonials section ends here-->
+        <br>
+        <hr>
+        <!-- footer section starts -->
+        <section id="contact">
+            <footer class="footer">
+                <div class="footer-container">
+                    <!-- Column 1 -->
+                    <div class="footer-box">
+                        <h2>NextTrip</h2>
+                        <p style="color: white; font-size: 17px;">Explore the world with us. <br>Discover
+                            beautiful
+                            destinations <br> and unforgettable experiences.
+                        </p>
+                    </div>
+                    <!-- Column 2 -->
+                    <div class="footer-box">
+                        <h2>Quick Links</h2>
+                        <ul>
+                            <li><a href="{{ url_for('home') }}#hero" style="font-size: 20px;">Home</a></li>
+                            <li><a href="{{ url_for('home') }}#about-us" style="font-size: 20px;">About Us</a></li>
+                            <li><a href="{{ url_for('services') }}" style="font-size: 20px;">Services</a></li>
+                            <li><a href="{{ url_for('package') }}" style="font-size: 20px;">Packages</a></li>
+                            <li><a href="{{ url_for('home') }}#contact" style="font-size: 20px;">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="footer-box">
+                        <h2>Contact Us</h2>
+                        <p><i class="fas fa-envelope"></i> <span style="color: white; font-size: 16px;">Email:
+                                info@nexttrip.com</span></p>
+                        <p><i class="fas fa-phone"></i> <span style="color: white; font-size: 17px;">Phone: +91
+                                98765
+                                43210</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span style="color: white; font-size: 17px;">Location:
+                                India,Kolkata</span></p>
+                    </div>
+                    <!-- Column 4 -->
+                    <div class="footer-box">
+                        <h2>Follow Us</h2>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    © 2026 NextTrip. All rights reserved.
+                </div>
+            </footer>
+        </section>
+        <!-- footer section ends -->
+
+</body>
+
+</html>
